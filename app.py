@@ -29,18 +29,18 @@ if st.button("Predict"):
   body = {"dataframe_records": [{"previous_score": previous_score,
                       "inspections": inspections}]}
   
-# Show a spinning wheel while we wait for the answer
-with st.spinner("Asking the model. The first request can take a few minutes "
-          "while the endpoint wakes up..."):
-  # Try to send the request; wait up to 300 seconds for a reply
-  try:
-    r = requests.post(url, headers=headers, json=body, timeout=300)
-  # If the request could not be sent at all (no internet, wrong address)...
-  except requests.RequestException as e:
-    # ...show the problem in a red box
-    st.error(f"Could not reach the model: {e}")
-    # ...and stop running the rest of the script
-    st.stop()
+  # Show a spinning wheel while we wait for the answer
+  with st.spinner("Asking the model. The first request can take a few minutes "
+            "while the endpoint wakes up..."):
+    # Try to send the request; wait up to 300 seconds for a reply
+    try:
+      r = requests.post(url, headers=headers, json=body, timeout=300)
+    # If the request could not be sent at all (no internet, wrong address)...
+    except requests.RequestException as e:
+      # ...show the problem in a red box
+      st.error(f"Could not reach the model: {e}")
+      # ...and stop running the rest of the script
+      st.stop()
     
 # Status code 200 means the endpoint answered successfully
 if r.status_code == 200:
